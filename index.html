@@ -15,6 +15,8 @@
     .video-stage{width:min(96vw,1050px)}.video-title{font-size:clamp(28px,5vw,58px);font-weight:900;margin-bottom:22px;text-shadow:0 0 25px #ff5a9e}.video-grid{display:grid;grid-template-columns:repeat(2,minmax(145px,1fr));gap:clamp(12px,2.5vw,28px);align-items:center}.vframe{height:clamp(160px,30vw,300px);border:5px solid rgba(255,255,255,.88);border-radius:28px;overflow:hidden;background:#000;box-shadow:0 0 42px rgba(255,0,100,.55);transform:rotate(var(--r)) translateY(var(--y));animation:vpop .8s ease both}.vframe video{width:100%;height:100%;object-fit:cover}.vframe:nth-child(1){--r:-4deg;--y:-14px}.vframe:nth-child(2){--r:3deg;--y:18px}.vframe:nth-child(3){--r:2deg;--y:-6px}.vframe:nth-child(4){--r:-3deg;--y:14px}@keyframes vpop{from{transform:scale(.6) rotate(0);opacity:0}to{opacity:1}}
     .blast-piece{position:fixed;left:50%;top:50%;width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 16px var(--c);z-index:20;pointer-events:none;animation:blast 1.25s ease-out forwards}@keyframes blast{to{transform:translate(var(--x),var(--y)) scale(.18);opacity:0}}
     .petal{position:fixed;top:-60px;width:22px;height:15px;border-radius:80% 20% 80% 20%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.45),transparent 35%),linear-gradient(135deg,#ff9db8,#c50045);z-index:30;pointer-events:none;animation:fall var(--d) linear forwards;opacity:var(--o)}@keyframes fall{to{transform:translate(var(--x),112vh) rotate(var(--r));opacity:0}}
+
+    .last-video-stage{width:min(94vw,880px);display:grid;place-items:center;gap:22px}.special-btn{border:0;border-radius:16px;padding:16px 24px;font-size:clamp(17px,2.7vw,28px);font-weight:900;color:#fff;background:linear-gradient(135deg,#ff2d78,#8b0038);box-shadow:0 0 25px rgba(255,70,140,.7),0 12px 35px rgba(0,0,0,.35);cursor:pointer;text-shadow:0 0 12px rgba(255,255,255,.45);animation:breath 2.3s ease-in-out infinite}.last-frame{width:min(92vw,820px);height:min(52vw,460px);border:5px solid rgba(255,255,255,.9);border-radius:0;overflow:hidden;background:#000;box-shadow:0 0 60px rgba(255,0,100,.7);display:none}.last-frame video{width:100%;height:100%;object-fit:contain;background:#000}.last-hint{font-size:clamp(18px,3vw,32px);font-weight:800;color:#ffdce8;text-shadow:0 0 18px #ff2d80}
     .final-box{display:grid;place-items:center;gap:18px}.final-text{font-size:clamp(30px,6vw,76px);font-weight:900;color:#ffe7f0;text-shadow:0 0 18px #fff,0 0 42px #ff2d80}.final-images{position:relative;width:min(86vw,560px);height:min(70vh,430px);display:grid;place-items:center}.final-img{position:absolute;max-width:70%;max-height:80%;object-fit:contain;filter:drop-shadow(0 0 28px rgba(255,255,255,.75)) drop-shadow(0 0 70px rgba(255,0,100,.9));animation:zoomFlower 4.8s ease forwards}.final-heart{max-width:48%;animation-delay:.5s}.final-title{animation-delay:0s}@keyframes zoomFlower{0%{transform:scale(.1) rotate(-18deg);opacity:0}25%{transform:scale(1.05) rotate(0);opacity:1}60%{transform:scale(1.18)}100%{transform:scale(.16) rotate(720deg);opacity:.95;border-radius:50%;filter:drop-shadow(0 0 38px #ff7cad)}}
     .flower{position:absolute;width:230px;height:230px;animation:flowerIn 1.5s ease both 4.6s}.flower span{position:absolute;left:95px;top:18px;width:42px;height:98px;border-radius:50% 50% 8px 8px;background:linear-gradient(#ffb3cb,#ff2c78);transform-origin:50% 96px;box-shadow:0 0 22px rgba(255,80,140,.8)}.flower span:nth-child(1){transform:rotate(0deg)}.flower span:nth-child(2){transform:rotate(45deg)}.flower span:nth-child(3){transform:rotate(90deg)}.flower span:nth-child(4){transform:rotate(135deg)}.flower span:nth-child(5){transform:rotate(180deg)}.flower span:nth-child(6){transform:rotate(225deg)}.flower span:nth-child(7){transform:rotate(270deg)}.flower span:nth-child(8){transform:rotate(315deg)}.flower:after{content:'❤';position:absolute;inset:0;display:grid;place-items:center;font-size:56px;color:#fff;text-shadow:0 0 20px #ff0058}@keyframes flowerIn{from{transform:scale(.1);opacity:0}to{transform:scale(1);opacity:1}}
   </style>
@@ -25,12 +27,15 @@
   <section class="screen" id="intro"><div class="wrap"><h1 class="title">WORLD BEST<br>SISTER</h1><img id="mainHeart" class="main-heart" alt="heart touch"><div class="tap">❤️ दिल पर टच करो ❤️</div><div class="poem">लक्ष्मी, तेरी मुस्कान मेरी दुनिया की रोशनी है,<br>तेरी खुशियों में ही मेरी हर खुशी है।<br>तू सिर्फ बहन नहीं, मेरी सबसे प्यारी दोस्त है — Best Sister Ever ❤️</div><div class="sub">Goodbye Sister... I will miss you 🥺</div></div></section>
   <section class="screen" id="images"><div class="wrap"><h1 class="title">LAXMI</h1><div class="image-card"><img id="photo" alt="memory"></div></div></section>
   <section class="screen" id="videos"><div class="video-stage"><div class="video-title" id="videoTitle">Memories Video</div><div class="video-grid" id="videoGrid"></div></div></section>
+  <section class="screen" id="lastVideo"><div class="last-video-stage"><div class="last-hint">Last Special Memory ❤️</div><button id="specialBtn" class="special-btn">Laxmi Ye Special Video Hai Dhyan Se Dekhna</button><div class="last-frame" id="lastFrame"><video id="lastSpecialVideo" playsinline webkit-playsinline preload="auto" controls></video></div></div></section>
   <section class="screen" id="final"><div class="final-box"><div class="final-text">Best Sister Ever ❤️</div><div class="final-images"><img id="finalTitle" class="final-img final-title" alt="title"><img id="finalHeart" class="final-img final-heart" alt="heart"><div class="flower"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div></div></section>
 <script>
 const imgCount=15, videoCount=8;
 const baseFolders=['./asset/','./assets/','./assert/','./asserts/','./asset/images/','./assets/images/','./assert/images/','./asserts/images/','./images/','./'];
 function imageFileNames(i){return [`image${i}.jpeg`,`image${i}.jpg`,`image${i}.png`,`Image${i}.jpeg`,`Image${i}.jpg`];}
 function videoFileNames(i){return [`video${i}.MP4`,`video${i}.mp4`,`Video${i}.MP4`,`Video${i}.mp4`];}
+function lastVideoFileNames(){return ['LAST.MP4','LAST.mp4','last.MP4','last.mp4'];}
+function akkiVideoFileNames(){return ['AKKI.MP4','AKKI.mp4','Akki.MP4','Akki.mp4','akki.MP4','akki.mp4'];}
 function assetCandidates(name){return baseFolders.map(f=>f+name)}
 function fileCandidates(names){return names.flatMap(n=>assetCandidates(n))}
 function setImageWithFallback(el, names){
@@ -43,7 +48,6 @@ function setVideoWithFallback(video, names){
   const list=fileCandidates(names); let i=0;
   const trySrc=()=>{ video.src=list[i]; video.load(); };
   video.onerror=()=>{ i++; if(i<list.length) trySrc(); };
-  video.addEventListener('loadeddata',()=>video.play().catch(()=>{}),{once:false});
   trySrc();
 }
 const song=document.getElementById('song');
@@ -54,25 +58,59 @@ setImageWithFallback(document.getElementById('finalHeart'), ['heart.png','Heart.
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
 function petals(n=80){for(let i=0;i<n;i++){const p=document.createElement('div');p.className='petal';p.style.left=Math.random()*100+'vw';p.style.setProperty('--x',(Math.random()*260-130)+'px');p.style.setProperty('--r',(Math.random()*900-450)+'deg');p.style.setProperty('--d',(4+Math.random()*4)+'s');p.style.setProperty('--o',(.55+Math.random()*.45));document.body.appendChild(p);setTimeout(()=>p.remove(),8500)}}
 function blast(n=90){const colors=['#fff','#ff2d78','#ff8ab1','#ffd6e5'];for(let i=0;i<n;i++){const b=document.createElement('div');b.className='blast-piece';b.style.setProperty('--c',colors[i%colors.length]);b.style.setProperty('--x',(Math.random()*1200-600)+'px');b.style.setProperty('--y',(Math.random()*800-400)+'px');document.body.appendChild(b);setTimeout(()=>b.remove(),1400)}}
-function startImages(){show('images');song.play().catch(()=>{});let idx=1;const photo=document.getElementById('photo');const next=()=>{setImageWithFallback(photo,imageFileNames(idx));photo.parentElement.style.animation='none';void photo.parentElement.offsetWidth;photo.parentElement.style.animation='photoIn 1.6s ease both';idx++; if(idx<=imgCount)setTimeout(next,4000);else setTimeout(()=>startVideos(0),4000)};next()}
+function startImages(){show('images');song.play().catch(()=>{});let idx=1;const photo=document.getElementById('photo');const next=()=>{setImageWithFallback(photo,imageFileNames(idx));photo.parentElement.style.animation='none';void photo.parentElement.offsetWidth;photo.parentElement.style.animation='photoIn 1.6s ease both';idx++; if(idx<=imgCount)setTimeout(next,5000);else setTimeout(()=>startVideos(0),5000)};next()}
 function startVideos(group){
   show('videos');
   document.getElementById('videoTitle').textContent=group===0?'Video Memories 1':'Video Memories 2';
   const grid=document.getElementById('videoGrid');grid.innerHTML='';
-  let ended=0; const finishOne=()=>{ended++; if(ended===4){blast();petals(90);setTimeout(()=> group===0 ? startVideos(1) : startFinal(),1800)}};
+  const videos=[];
+  let ended=0;
+  const finishOne=()=>{ended++; if(ended===4){blast();petals(90);setTimeout(()=> group===0 ? startVideos(1) : showLastVideo(),1800)}};
   for(let i=0;i<4;i++){
     const index=group*4+i+1;
     const frame=document.createElement('div');frame.className='vframe';
     const v=document.createElement('video');
-    v.autoplay=true; v.muted=true; v.defaultMuted=true; v.playsInline=true; v.controls=false; v.preload='auto';
+    v.autoplay=false; v.muted=true; v.defaultMuted=true; v.playsInline=true; v.controls=false; v.preload='auto';
     v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
     setVideoWithFallback(v, videoFileNames(index));
     v.onended=finishOne;
     frame.appendChild(v); grid.appendChild(frame);
-    setTimeout(()=>v.play().catch(()=>{}),400);
-    // Safety: if a very short/blocked video doesn't fire ended, move on after 18 sec.
-    setTimeout(()=>{ if(!v.ended && v.currentTime < 0.2) { frame.style.outline='2px solid rgba(255,255,255,.35)'; } },2500);
+    videos.push(v);
   }
+  // Start all 4 videos together, not one by one.
+  setTimeout(()=>videos.forEach(v=>{v.currentTime=0; v.play().catch(()=>{});}),900);
+  // Safety: highlight if any video file path is wrong or autoplay is blocked.
+  setTimeout(()=>videos.forEach(v=>{ if(!v.ended && v.currentTime < 0.2) v.parentElement.style.outline='2px solid rgba(255,255,255,.35)'; }),3000);
+}
+
+function showLastVideo(){
+  show('lastVideo');
+  const btn=document.getElementById('specialBtn');
+  const frame=document.getElementById('lastFrame');
+  const v=document.getElementById('lastSpecialVideo');
+  frame.style.display='none';
+  btn.style.display='inline-block';
+  setVideoWithFallback(v,lastVideoFileNames());
+  btn.onclick=()=>{
+    btn.style.display='none';
+    frame.style.display='block';
+    song.pause();
+    v.muted=false;
+    v.controls=true;
+    v.play().catch(()=>{});
+  };
+  let playingAkki=false;
+  v.onended=()=>{
+    if(!playingAkki){
+      playingAkki=true;
+      document.querySelector('#lastVideo .last-hint').textContent='One More Special Memory ❤️';
+      setVideoWithFallback(v,akkiVideoFileNames());
+      v.currentTime=0;
+      v.play().catch(()=>{});
+      return;
+    }
+    blast(120);petals(140);setTimeout(startFinal,1600)
+  };
 }
 function startFinal(){show('final');blast(120);petals(140);setInterval(()=>petals(25),2600)}
 function openIntro(){show('intro');song.play().catch(()=>{});}
