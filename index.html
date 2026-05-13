@@ -58,58 +58,76 @@ setImageWithFallback(document.getElementById('finalHeart'), ['heart.png','Heart.
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
 function petals(n=80){for(let i=0;i<n;i++){const p=document.createElement('div');p.className='petal';p.style.left=Math.random()*100+'vw';p.style.setProperty('--x',(Math.random()*260-130)+'px');p.style.setProperty('--r',(Math.random()*900-450)+'deg');p.style.setProperty('--d',(4+Math.random()*4)+'s');p.style.setProperty('--o',(.55+Math.random()*.45));document.body.appendChild(p);setTimeout(()=>p.remove(),8500)}}
 function blast(n=90){const colors=['#fff','#ff2d78','#ff8ab1','#ffd6e5'];for(let i=0;i<n;i++){const b=document.createElement('div');b.className='blast-piece';b.style.setProperty('--c',colors[i%colors.length]);b.style.setProperty('--x',(Math.random()*1200-600)+'px');b.style.setProperty('--y',(Math.random()*800-400)+'px');document.body.appendChild(b);setTimeout(()=>b.remove(),1400)}}
-function startImages(){show('images');song.play().catch(()=>{});let idx=1;const photo=document.getElementById('photo');const next=()=>{setImageWithFallback(photo,imageFileNames(idx));photo.parentElement.style.animation='none';void photo.parentElement.offsetWidth;photo.parentElement.style.animation='photoIn 1.6s ease both';idx++; if(idx<=imgCount)setTimeout(next,5000);else setTimeout(()=>startVideos(0),5000)};next()}
+function startImages(){show('images');song.play().catch(()=>{});let idx=1;const photo=document.getElementById('photo');const next=()=>{setImageWithFallback(photo,imageFileNames(idx));photo.parentElement.style.animation='none';void photo.parentElement.offsetWidth;photo.parentElement.style.animation='photoIn 1.6s ease both';petals(55);idx++; if(idx<=imgCount)setTimeout(next,5000);else setTimeout(()=>startVideos(0),5000)};next()}
 function startVideos(group){
   show('videos');
-  document.getElementById('videoTitle').textContent=group===0?'Video Memories 1':'Video Memories 2';
-  const grid=document.getElementById('videoGrid');grid.innerHTML='';
+  document.getElementById('videoTitle').textContent = group===0 ? 'Video Memories 1' : 'Video Memories 2';
+  const grid=document.getElementById('videoGrid');
+  grid.innerHTML='';
+
   const videos=[];
-  let ended=0;
-  const finishOne=()=>{ended++; if(ended===4){blast();petals(90);setTimeout(()=> group===0 ? startVideos(1) : showLastVideo(),1800)}};
+  const done=[false,false,false,false];
+  let moved=false;
+
+  function goNext(){
+    if(moved) return;
+    moved=true;
+    blast();
+    petals(90);
+    setTimeout(()=> group===0 ? startVideos(1) : showLastVideo(), 1800);
+  }
+
+  function markDone(i){
+    if(done[i]) return;
+    done[i]=true;
+    if(done.every(Boolean)) goNext();
+  }
+
   for(let i=0;i<4;i++){
     const index=group*4+i+1;
-    const frame=document.createElement('div');frame.className='vframe';
+    const frame=document.createElement('div');
+    frame.className='vframe';
+
     const v=document.createElement('video');
     v.autoplay=true;
     v.muted=true;
     v.defaultMuted=true;
     v.playsInline=true;
     v.controls=false;
+    v.loop=false;
     v.preload='auto';
     v.setAttribute('autoplay','');
     v.setAttribute('muted','');
     v.setAttribute('playsinline','');
     v.setAttribute('webkit-playsinline','');
+
     setVideoWithFallback(v, videoFileNames(index));
-    v.onended=finishOne;
-    frame.appendChild(v); grid.appendChild(frame);
+
+    v.addEventListener('ended',()=>markDone(i));
+    v.addEventListener('error',()=>markDone(i));
+
+    frame.appendChild(v);
+    grid.appendChild(frame);
     videos.push(v);
   }
-  // Start all 4 videos together. Muted + autoplay attributes are required for mobile/GitHub Pages.
-  const startAllVideos=()=>{
+
+  function playAll(){
     videos.forEach(v=>{
       v.muted=true;
       v.defaultMuted=true;
-      try{ v.currentTime=0; }catch(e){}
-      const playPromise=v.play();
-      if(playPromise && playPromise.catch) playPromise.catch(()=>{
-        // Retry once after browser finishes buffering.
-        setTimeout(()=>v.play().catch(()=>{}),700);
-      });
+      v.play().catch(()=>{});
     });
-  };
-  let loadedCount=0, started=false;
-  const markLoaded=()=>{ loadedCount++; if(!started && loadedCount>=4){ started=true; startAllVideos(); } };
-  videos.forEach(v=>{
-    if(v.readyState>=2) markLoaded();
-    else {
-      v.addEventListener('loadeddata',markLoaded,{once:true});
-      v.addEventListener('canplay',markLoaded,{once:true});
-    }
-  });
-  setTimeout(()=>{ if(!started){ started=true; startAllVideos(); } },1800);
-  // Safety retry in case mobile browser pauses them during transition.
-  setTimeout(()=>videos.forEach(v=>{ if(!v.ended && v.paused) v.play().catch(()=>{}); }),3200);
+  }
+
+  // चारों वीडियो एक साथ चालू होंगे. Browser रोक दे तो बार-बार retry होगा.
+  playAll();
+  setTimeout(playAll,500);
+  setTimeout(playAll,1200);
+  setTimeout(playAll,2500);
+
+  // अगर कोई वीडियो freeze/blocked हो जाए तो page अटके नहीं — next section पर चला जाएगा.
+  const maxTime = group===0 ? 45000 : 45000;
+  setTimeout(goNext, maxTime);
 }
 
 function showLastVideo(){
@@ -117,9 +135,12 @@ function showLastVideo(){
   const btn=document.getElementById('specialBtn');
   const frame=document.getElementById('lastFrame');
   const v=document.getElementById('lastSpecialVideo');
+  const hint=document.querySelector('#lastVideo .last-hint');
   frame.style.display='none';
   btn.style.display='inline-block';
+  hint.textContent='Last Special Memory ❤️';
   setVideoWithFallback(v,lastVideoFileNames());
+
   btn.onclick=()=>{
     btn.style.display='none';
     frame.style.display='block';
@@ -128,19 +149,25 @@ function showLastVideo(){
     v.controls=true;
     v.play().catch(()=>{});
   };
+
   let playingAkki=false;
   v.onended=()=>{
     if(!playingAkki){
       playingAkki=true;
-      document.querySelector('#lastVideo .last-hint').textContent='One More Special Memory ❤️';
+      hint.textContent='AKKI Special Memory ❤️';
       setVideoWithFallback(v,akkiVideoFileNames());
-      v.currentTime=0;
-      v.play().catch(()=>{});
+      setTimeout(()=>{
+        try{v.currentTime=0;}catch(e){}
+        v.play().catch(()=>{});
+      },350);
       return;
     }
-    blast(120);petals(140);setTimeout(startFinal,1600)
+    blast(120);
+    petals(140);
+    setTimeout(startFinal,1600);
   };
 }
+
 function startFinal(){show('final');blast(120);petals(140);setInterval(()=>petals(25),2600)}
 function openIntro(){show('intro');song.play().catch(()=>{});}
 document.getElementById('splashTitle').addEventListener('click',openIntro);
