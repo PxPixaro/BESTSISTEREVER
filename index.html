@@ -70,17 +70,46 @@ function startVideos(group){
     const index=group*4+i+1;
     const frame=document.createElement('div');frame.className='vframe';
     const v=document.createElement('video');
-    v.autoplay=false; v.muted=true; v.defaultMuted=true; v.playsInline=true; v.controls=false; v.preload='auto';
-    v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
+    v.autoplay=true;
+    v.muted=true;
+    v.defaultMuted=true;
+    v.playsInline=true;
+    v.controls=false;
+    v.preload='auto';
+    v.setAttribute('autoplay','');
+    v.setAttribute('muted','');
+    v.setAttribute('playsinline','');
+    v.setAttribute('webkit-playsinline','');
     setVideoWithFallback(v, videoFileNames(index));
     v.onended=finishOne;
     frame.appendChild(v); grid.appendChild(frame);
     videos.push(v);
   }
-  // Start all 4 videos together, not one by one.
-  setTimeout(()=>videos.forEach(v=>{v.currentTime=0; v.play().catch(()=>{});}),900);
-  // Safety: highlight if any video file path is wrong or autoplay is blocked.
-  setTimeout(()=>videos.forEach(v=>{ if(!v.ended && v.currentTime < 0.2) v.parentElement.style.outline='2px solid rgba(255,255,255,.35)'; }),3000);
+  // Start all 4 videos together. Muted + autoplay attributes are required for mobile/GitHub Pages.
+  const startAllVideos=()=>{
+    videos.forEach(v=>{
+      v.muted=true;
+      v.defaultMuted=true;
+      try{ v.currentTime=0; }catch(e){}
+      const playPromise=v.play();
+      if(playPromise && playPromise.catch) playPromise.catch(()=>{
+        // Retry once after browser finishes buffering.
+        setTimeout(()=>v.play().catch(()=>{}),700);
+      });
+    });
+  };
+  let loadedCount=0, started=false;
+  const markLoaded=()=>{ loadedCount++; if(!started && loadedCount>=4){ started=true; startAllVideos(); } };
+  videos.forEach(v=>{
+    if(v.readyState>=2) markLoaded();
+    else {
+      v.addEventListener('loadeddata',markLoaded,{once:true});
+      v.addEventListener('canplay',markLoaded,{once:true});
+    }
+  });
+  setTimeout(()=>{ if(!started){ started=true; startAllVideos(); } },1800);
+  // Safety retry in case mobile browser pauses them during transition.
+  setTimeout(()=>videos.forEach(v=>{ if(!v.ended && v.paused) v.play().catch(()=>{}); }),3200);
 }
 
 function showLastVideo(){
