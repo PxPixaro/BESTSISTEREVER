@@ -16,7 +16,7 @@
     .blast-piece{position:fixed;left:50%;top:50%;width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 16px var(--c);z-index:20;pointer-events:none;animation:blast 1.25s ease-out forwards}@keyframes blast{to{transform:translate(var(--x),var(--y)) scale(.18);opacity:0}}
     .petal{position:fixed;top:-60px;width:22px;height:15px;border-radius:80% 20% 80% 20%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.45),transparent 35%),linear-gradient(135deg,#ff9db8,#c50045);z-index:30;pointer-events:none;animation:fall var(--d) linear forwards;opacity:var(--o)}@keyframes fall{to{transform:translate(var(--x),112vh) rotate(var(--r));opacity:0}}
 
-    .last-video-stage{width:min(94vw,880px);display:grid;place-items:center;gap:18px}.special-btn{border:0;border-radius:16px;padding:16px 24px;font-size:clamp(17px,2.7vw,28px);font-weight:900;color:#fff;background:linear-gradient(135deg,#ff2d78,#8b0038);box-shadow:0 0 25px rgba(255,70,140,.7),0 12px 35px rgba(0,0,0,.35);cursor:pointer;text-shadow:0 0 12px rgba(255,255,255,.45);animation:breath 2.3s ease-in-out infinite}.last-frame{width:min(86vw,430px);height:min(78vh,760px);aspect-ratio:9/16;border:5px solid rgba(255,255,255,.9);border-radius:0;overflow:hidden;background:#000;box-shadow:0 0 60px rgba(255,0,100,.7);display:none}.last-frame video{width:100%;height:100%;object-fit:contain;background:#000}.last-hint{font-size:clamp(18px,3vw,32px);font-weight:800;color:#ffdce8;text-shadow:0 0 18px #ff2d80}
+    .last-video-stage{width:min(94vw,460px);display:grid;place-items:center;gap:14px}.special-btn{border:0;border-radius:16px;padding:16px 24px;font-size:clamp(17px,2.7vw,28px);font-weight:900;color:#fff;background:linear-gradient(135deg,#ff2d78,#8b0038);box-shadow:0 0 25px rgba(255,70,140,.7),0 12px 35px rgba(0,0,0,.35);cursor:pointer;text-shadow:0 0 12px rgba(255,255,255,.45);animation:breath 2.3s ease-in-out infinite}.last-frame{width:min(90vw,360px)!important;height:min(78vh,640px)!important;aspect-ratio:9/16!important;border:5px solid rgba(255,255,255,.9);border-radius:0;overflow:hidden;background:#000;box-shadow:0 0 60px rgba(255,0,100,.7);display:none}.last-frame video{width:100%!important;height:100%!important;object-fit:contain!important;background:#000}.last-hint{font-size:clamp(18px,3vw,32px);font-weight:800;color:#ffdce8;text-shadow:0 0 18px #ff2d80}
     .final-box{display:grid;place-items:center;gap:18px}.final-text{font-size:clamp(30px,6vw,76px);font-weight:900;color:#ffe7f0;text-shadow:0 0 18px #fff,0 0 42px #ff2d80}.final-images{position:relative;width:min(86vw,560px);height:min(70vh,430px);display:grid;place-items:center}.final-img{position:absolute;max-width:70%;max-height:80%;object-fit:contain;filter:drop-shadow(0 0 28px rgba(255,255,255,.75)) drop-shadow(0 0 70px rgba(255,0,100,.9));animation:zoomFlower 4.8s ease forwards}.final-heart{max-width:48%;animation-delay:.5s}.final-title{animation-delay:0s}@keyframes zoomFlower{0%{transform:scale(.1) rotate(-18deg);opacity:0}25%{transform:scale(1.05) rotate(0);opacity:1}60%{transform:scale(1.18)}100%{transform:scale(.16) rotate(720deg);opacity:.95;border-radius:50%;filter:drop-shadow(0 0 38px #ff7cad)}}
     .flower{position:absolute;width:230px;height:230px;animation:flowerIn 1.5s ease both 4.6s}.flower span{position:absolute;left:95px;top:18px;width:42px;height:98px;border-radius:50% 50% 8px 8px;background:linear-gradient(#ffb3cb,#ff2c78);transform-origin:50% 96px;box-shadow:0 0 22px rgba(255,80,140,.8)}.flower span:nth-child(1){transform:rotate(0deg)}.flower span:nth-child(2){transform:rotate(45deg)}.flower span:nth-child(3){transform:rotate(90deg)}.flower span:nth-child(4){transform:rotate(135deg)}.flower span:nth-child(5){transform:rotate(180deg)}.flower span:nth-child(6){transform:rotate(225deg)}.flower span:nth-child(7){transform:rotate(270deg)}.flower span:nth-child(8){transform:rotate(315deg)}.flower:after{content:'❤';position:absolute;inset:0;display:grid;place-items:center;font-size:56px;color:#fff;text-shadow:0 0 20px #ff0058}@keyframes flowerIn{from{transform:scale(.1);opacity:0}to{transform:scale(1);opacity:1}}
   </style>
@@ -45,10 +45,17 @@ function setImageWithFallback(el, names){
   el.src=list[0];
 }
 function setVideoWithFallback(video, names){
-  const list=fileCandidates(names); let i=0;
-  const trySrc=()=>{ video.src=list[i]; video.load(); };
-  video.onerror=()=>{ i++; if(i<list.length) trySrc(); };
-  trySrc();
+  // Map every possible folder/path so GitHub root, images folder, asset folder all work.
+  const list=fileCandidates(names);
+  video.removeAttribute('src');
+  video.innerHTML='';
+  list.forEach(src=>{
+    const source=document.createElement('source');
+    source.src=src;
+    source.type='video/mp4';
+    video.appendChild(source);
+  });
+  video.load();
 }
 const song=document.getElementById('song');
 setImageWithFallback(document.getElementById('splashTitle'), ['TITLE.PNG','title.png','Title.png']);
@@ -104,7 +111,6 @@ function startVideos(group){
     setVideoWithFallback(v, videoFileNames(index));
 
     v.addEventListener('ended',()=>markDone(i));
-    v.addEventListener('error',()=>markDone(i));
 
     frame.appendChild(v);
     grid.appendChild(frame);
@@ -115,18 +121,30 @@ function startVideos(group){
     videos.forEach(v=>{
       v.muted=true;
       v.defaultMuted=true;
-      v.play().catch(()=>{});
+      v.playsInline=true;
+      v.setAttribute('muted','');
+      v.setAttribute('autoplay','');
+      v.setAttribute('playsinline','');
+      v.setAttribute('webkit-playsinline','');
+      if(v.readyState < 2) v.load();
+      const p=v.play();
+      if(p && p.catch) p.catch(()=>{});
     });
   }
 
   // चारों वीडियो एक साथ चालू होंगे. Browser रोक दे तो बार-बार retry होगा.
+  videos.forEach(v=>{
+    v.addEventListener('loadeddata', playAll, {once:true});
+    v.addEventListener('canplay', playAll, {once:true});
+  });
   playAll();
-  setTimeout(playAll,500);
-  setTimeout(playAll,1200);
-  setTimeout(playAll,2500);
+  setTimeout(playAll,300);
+  setTimeout(playAll,800);
+  setTimeout(playAll,1600);
+  setTimeout(playAll,3000);
 
-  // अगर कोई वीडियो freeze/blocked हो जाए तो page अटके नहीं — next section पर चला जाएगा.
-  const maxTime = group===0 ? 45000 : 45000;
+  // अगर video autoplay block/freeze हो जाए तो page अटके नहीं — next section पर चला जाएगा.
+  const maxTime = 52000;
   setTimeout(goNext, maxTime);
 }
 
@@ -145,21 +163,38 @@ function showLastVideo(){
     btn.style.display='none';
     frame.style.display='block';
     song.pause();
-    v.muted=false;
-    v.controls=true;
-    v.play().catch(()=>{});
+    playSpecialNow(v);
   };
 
   let playingAkki=false;
+  function playSpecialNow(video){
+    video.muted=false;
+    video.controls=true;
+    video.playsInline=true;
+    video.setAttribute('playsinline','');
+    video.setAttribute('webkit-playsinline','');
+    const tryPlay=()=>{
+      try{video.currentTime=0;}catch(e){}
+      video.play().catch(()=>{
+        // Browser block kare to ek muted retry, par video rukega nahi.
+        video.muted=true;
+        video.play().catch(()=>{});
+      });
+    };
+    video.addEventListener('canplay', tryPlay, {once:true});
+    video.addEventListener('loadedmetadata', tryPlay, {once:true});
+    setTimeout(tryPlay,450);
+    setTimeout(tryPlay,1200);
+  }
+
   v.onended=()=>{
     if(!playingAkki){
       playingAkki=true;
       hint.textContent='AKKI Special Memory ❤️';
+      frame.style.display='block';
+      btn.style.display='none';
       setVideoWithFallback(v,akkiVideoFileNames());
-      setTimeout(()=>{
-        try{v.currentTime=0;}catch(e){}
-        v.play().catch(()=>{});
-      },350);
+      playSpecialNow(v);
       return;
     }
     blast(120);
