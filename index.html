@@ -10,13 +10,19 @@
     .backlight{position:fixed;inset:-20vmax;pointer-events:none;opacity:.65;background:conic-gradient(from 0deg at 50% 50%,transparent 0 12deg,rgba(255,255,255,.15) 18deg,transparent 35deg,transparent 70deg,rgba(255,70,140,.17) 84deg,transparent 105deg,transparent 150deg,rgba(255,255,255,.12) 165deg,transparent 190deg,transparent 245deg,rgba(255,70,140,.15) 260deg,transparent 290deg,transparent 325deg,rgba(255,255,255,.12) 340deg,transparent 360deg);filter:blur(13px);animation:rays 22s linear infinite}@keyframes rays{to{transform:rotate(360deg)}}
     .screen{position:fixed;inset:0;display:none;place-items:center;padding:18px;z-index:2}.screen.active{display:grid}.wrap{width:min(94vw,900px);position:relative;z-index:3;display:grid;place-items:center;justify-items:center}.title{font-size:clamp(38px,7vw,76px);font-weight:900;letter-spacing:2px;text-transform:uppercase;margin:0 0 22px;text-shadow:0 0 22px #ff5a9e,0 0 50px #ff0058}.sub{font-size:clamp(18px,3vw,30px);color:#ffd6e5;text-shadow:0 0 16px #ff3a85}
     .touch-title{width:min(78vw,520px);max-height:58vh;object-fit:contain;cursor:pointer;filter:drop-shadow(0 0 35px rgba(255,255,255,.55)) drop-shadow(0 0 85px rgba(255,0,100,.85));animation:breath 2.8s ease-in-out infinite}.main-heart{width:min(54vw,330px);max-height:38vh;margin:10px auto 8px;object-fit:contain;cursor:pointer;filter:drop-shadow(0 0 32px rgba(255,40,100,.95)) drop-shadow(0 0 80px rgba(255,0,90,.75));animation:breath 2.6s ease-in-out infinite}.splash-note{font-size:clamp(18px,3vw,28px);margin-top:16px;color:#ffdce8;text-shadow:0 0 18px #ff2d80}.tap{margin-top:18px;font-size:clamp(17px,2.8vw,24px);animation:blink 1.5s infinite}@keyframes breath{50%{transform:scale(1.07)}}@keyframes blink{50%{opacity:.45}}
-    .poem{margin:16px auto 0;max-width:720px;line-height:1.6;font-size:clamp(15px,2.1vw,22px);padding:15px 18px;border:1px solid rgba(255,255,255,.22);border-radius:20px;background:rgba(255,255,255,.08);backdrop-filter:blur(9px);box-shadow:0 0 35px rgba(255,0,100,.2)}
-    .image-card{width:min(82vw,520px);height:min(82vw,520px);border-radius:0;overflow:hidden;background:#fff;border:6px solid rgba(255,255,255,.9);box-shadow:0 0 65px rgba(255,255,255,.4),0 0 95px rgba(255,0,90,.8);animation:photoIn 1s ease both;margin:0 auto;display:block;justify-self:center;align-self:center}.image-card img{width:100%;height:100%;object-fit:cover}@keyframes photoIn{from{transform:scale(.96);opacity:0}to{transform:scale(1);opacity:1}}
-    .video-stage{width:min(96vw,1050px)}.video-title{font-size:clamp(28px,5vw,58px);font-weight:900;margin-bottom:22px;text-shadow:0 0 25px #ff5a9e}.video-grid{display:grid;grid-template-columns:repeat(2,minmax(145px,1fr));gap:clamp(12px,2.5vw,28px);align-items:center}.vframe{height:clamp(160px,30vw,300px);border:5px solid rgba(255,255,255,.88);border-radius:28px;overflow:hidden;background:#000;box-shadow:0 0 42px rgba(255,0,100,.55);transform:rotate(var(--r)) translateY(var(--y));animation:vpop .8s ease both}.vframe video{width:100%;height:100%;object-fit:cover}.vframe:nth-child(1){--r:-4deg;--y:-14px}.vframe:nth-child(2){--r:3deg;--y:18px}.vframe:nth-child(3){--r:2deg;--y:-6px}.vframe:nth-child(4){--r:-3deg;--y:14px}@keyframes vpop{from{transform:scale(.6) rotate(0);opacity:0}to{opacity:1}}
+    .poem{margin:12px auto 0;width:min(92vw,980px);max-width:980px;line-height:1.5;font-size:clamp(16px,2.05vw,26px);padding:22px 34px;border:1px solid rgba(255,255,255,.24);border-radius:24px;background:rgba(255,255,255,.08);backdrop-filter:blur(9px);box-shadow:0 0 35px rgba(255,0,100,.2);font-weight:500}.poem-heading{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:900;font-size:clamp(34px,4.6vw,58px);margin-bottom:14px;text-shadow:0 0 18px #ff5a9e}
+    .image-card{width:auto;height:auto;max-width:94vw;max-height:70vh;border-radius:0;overflow:hidden;background:rgba(255,255,255,.96);border:6px solid rgba(255,255,255,.95);box-shadow:0 0 75px rgba(255,255,255,.45),0 0 110px rgba(255,0,90,.85);animation:photoIn 1s ease both;margin:0 auto;display:inline-block;justify-self:center;align-self:center}.image-card img{display:block;width:auto;height:auto;max-width:calc(94vw - 12px);max-height:calc(70vh - 12px);object-fit:contain;background:#fff}@media (max-width:700px){.image-card{max-width:96vw;max-height:66vh;border-width:4px}.image-card img{max-width:calc(96vw - 8px);max-height:calc(66vh - 8px)}.title{margin-bottom:14px}}@keyframes photoIn{from{transform:scale(.96);opacity:0}to{transform:scale(1);opacity:1}}
+    .video-stage{width:100vw;display:grid;place-items:center;padding:8px 10px}.video-title{font-size:clamp(30px,4.4vw,58px);font-weight:900;margin-bottom:12px;text-shadow:0 0 25px #ff5a9e}.video-grid{width:min(99vw,1500px);display:grid;grid-template-columns:repeat(2,auto);gap:clamp(14px,2vw,28px);align-items:center;justify-content:center}.vframe{display:flex;align-items:center;justify-content:center;overflow:visible;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;transform:none!important;animation:vpop .8s ease both}.vframe video{display:block;width:auto!important;height:auto!important;max-width:48vw!important;max-height:38vh!important;object-fit:contain!important;background:#000!important;border:4px solid rgba(255,255,255,.92);border-radius:16px;box-shadow:0 0 42px rgba(255,0,100,.55)}.vframe.portrait video{max-width:24vw!important;max-height:44vh!important}.vframe.landscape video{max-width:48vw!important;max-height:38vh!important}@media (max-width:900px){.video-grid{grid-template-columns:repeat(2,auto);gap:10px;width:99vw}.vframe video{max-width:48vw!important;max-height:34vh!important}.vframe.portrait video{max-width:45vw!important;max-height:39vh!important}}@keyframes vpop{from{transform:scale(.6);opacity:0}to{opacity:1}}
     .blast-piece{position:fixed;left:50%;top:50%;width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 16px var(--c);z-index:20;pointer-events:none;animation:blast 1.25s ease-out forwards}@keyframes blast{to{transform:translate(var(--x),var(--y)) scale(.18);opacity:0}}
     .petal{position:fixed;top:-60px;width:22px;height:15px;border-radius:80% 20% 80% 20%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.45),transparent 35%),linear-gradient(135deg,#ff9db8,#c50045);z-index:30;pointer-events:none;animation:fall var(--d) linear forwards;opacity:var(--o)}@keyframes fall{to{transform:translate(var(--x),112vh) rotate(var(--r));opacity:0}}
 
-    .last-video-stage{width:min(94vw,460px);display:grid;place-items:center;gap:14px}.special-btn{border:0;border-radius:16px;padding:16px 24px;font-size:clamp(17px,2.7vw,28px);font-weight:900;color:#fff;background:linear-gradient(135deg,#ff2d78,#8b0038);box-shadow:0 0 25px rgba(255,70,140,.7),0 12px 35px rgba(0,0,0,.35);cursor:pointer;text-shadow:0 0 12px rgba(255,255,255,.45);animation:breath 2.3s ease-in-out infinite}.last-frame{width:min(90vw,360px)!important;height:min(78vh,640px)!important;aspect-ratio:9/16!important;border:5px solid rgba(255,255,255,.9);border-radius:0;overflow:hidden;background:#000;box-shadow:0 0 60px rgba(255,0,100,.7);display:none}.last-frame video{width:100%!important;height:100%!important;object-fit:contain!important;background:#000}.last-hint{font-size:clamp(18px,3vw,32px);font-weight:800;color:#ffdce8;text-shadow:0 0 18px #ff2d80}
+    .last-video-stage{width:100vw;max-width:100vw;height:100vh;display:grid;place-items:center;gap:6px;padding:4px}.special-btn{border:0;border-radius:22px;padding:26px 42px;font-size:clamp(26px,4.8vw,54px);font-weight:900;line-height:1.22;color:#fff;background:linear-gradient(135deg,#ff2d78,#8b0038);box-shadow:0 0 35px rgba(255,70,140,.9),0 14px 42px rgba(0,0,0,.4);cursor:pointer;text-shadow:0 0 14px rgba(255,255,255,.55);animation:breath 2.3s ease-in-out infinite}.last-frame{display:none;border:0!important;border-radius:0!important;overflow:visible!important;background:transparent!important;box-shadow:none!important;width:auto!important;height:auto!important;max-width:96vw!important;max-height:96vh!important;place-items:center}.last-frame video{display:block;width:auto!important;height:auto!important;max-width:96vw!important;max-height:92vh!important;object-fit:contain!important;background:transparent!important;border:0!important;box-shadow:0 0 55px rgba(255,0,100,.55)}.last-hint{font-size:clamp(26px,4vw,46px);font-weight:900;color:#ffdce8;text-shadow:0 0 22px #ff2d80}
+
+    .miss-word{position:fixed;top:-70px;left:0;z-index:12;pointer-events:none;font-weight:900;font-size:clamp(22px,3vw,46px);color:#fff;text-shadow:0 0 12px #ff2d80,0 0 28px #ff2d80,0 0 44px #fff;opacity:.95;animation:missFall var(--d) linear forwards;white-space:nowrap}
+    @keyframes missFall{0%{transform:translate3d(0,-80px,0) rotate(var(--r));opacity:0}10%{opacity:.95}100%{transform:translate3d(var(--x),112vh,0) rotate(calc(var(--r) + 80deg));opacity:0}}
+
+
+    .miss-final-box{width:100vw;height:100vh;display:grid;place-items:center;padding:18px;position:relative;z-index:4}.miss-final-card{display:grid;place-items:center;gap:18px;width:min(96vw,900px);animation:photoIn 1s ease both}.miss-final-title{font-size:clamp(30px,5.8vw,78px);font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff;text-shadow:0 0 18px #fff,0 0 42px #ff2d80,0 0 80px #ff0058}.miss-final-img{display:block;width:auto;height:auto;max-width:94vw;max-height:72vh;object-fit:contain;border:0;border-radius:18px;box-shadow:0 0 55px rgba(255,255,255,.45),0 0 105px rgba(255,0,100,.85)}@media(max-width:700px){.miss-final-img{max-width:96vw;max-height:68vh}.miss-final-card{gap:12px}}
     .final-box{display:grid;place-items:center;gap:18px}.final-text{font-size:clamp(30px,6vw,76px);font-weight:900;color:#ffe7f0;text-shadow:0 0 18px #fff,0 0 42px #ff2d80}.final-images{position:relative;width:min(86vw,560px);height:min(70vh,430px);display:grid;place-items:center}.final-img{position:absolute;max-width:70%;max-height:80%;object-fit:contain;filter:drop-shadow(0 0 28px rgba(255,255,255,.75)) drop-shadow(0 0 70px rgba(255,0,100,.9));animation:zoomFlower 4.8s ease forwards}.final-heart{max-width:48%;animation-delay:.5s}.final-title{animation-delay:0s}@keyframes zoomFlower{0%{transform:scale(.1) rotate(-18deg);opacity:0}25%{transform:scale(1.05) rotate(0);opacity:1}60%{transform:scale(1.18)}100%{transform:scale(.16) rotate(720deg);opacity:.95;border-radius:50%;filter:drop-shadow(0 0 38px #ff7cad)}}
     .flower{position:absolute;width:230px;height:230px;animation:flowerIn 1.5s ease both 4.6s}.flower span{position:absolute;left:95px;top:18px;width:42px;height:98px;border-radius:50% 50% 8px 8px;background:linear-gradient(#ffb3cb,#ff2c78);transform-origin:50% 96px;box-shadow:0 0 22px rgba(255,80,140,.8)}.flower span:nth-child(1){transform:rotate(0deg)}.flower span:nth-child(2){transform:rotate(45deg)}.flower span:nth-child(3){transform:rotate(90deg)}.flower span:nth-child(4){transform:rotate(135deg)}.flower span:nth-child(5){transform:rotate(180deg)}.flower span:nth-child(6){transform:rotate(225deg)}.flower span:nth-child(7){transform:rotate(270deg)}.flower span:nth-child(8){transform:rotate(315deg)}.flower:after{content:'❤';position:absolute;inset:0;display:grid;place-items:center;font-size:56px;color:#fff;text-shadow:0 0 20px #ff0058}@keyframes flowerIn{from{transform:scale(.1);opacity:0}to{transform:scale(1);opacity:1}}
   </style>
@@ -24,11 +30,12 @@
 <body>
   <audio id="song" src="audio/song.mp3" preload="auto" loop></audio><div class="backlight"></div>
   <section class="screen active" id="splash"><div class="wrap"><img id="splashTitle" class="touch-title" alt="TITLE"><div class="splash-note">Touch to start ❤️</div></div></section>
-  <section class="screen" id="intro"><div class="wrap"><h1 class="title">WORLD BEST<br>SISTER</h1><img id="mainHeart" class="main-heart" alt="heart touch"><div class="tap">❤️ दिल पर टच करो ❤️</div><div class="poem">लक्ष्मी, तेरी मुस्कान मेरी दुनिया की रोशनी है,<br>तेरी खुशियों में ही मेरी हर खुशी है।<br>तू सिर्फ बहन नहीं, मेरी सबसे प्यारी दोस्त है — Best Sister Ever ❤️</div><div class="sub">Goodbye Sister... I will miss you 🥺</div></div></section>
-  <section class="screen" id="images"><div class="wrap"><h1 class="title">LAXMI</h1><div class="image-card"><img id="photo" alt="memory"></div></div></section>
+  <section class="screen" id="intro"><div class="wrap"><h1 class="title">WORLD BEST<br>SISTER</h1><img id="mainHeart" class="main-heart" alt="heart touch"><div class="tap">❤️ Touch the heart ❤️</div><div class="poem"><div class="poem-heading">To My Sister</div>No distance can ever weaken our bond<br>because our hearts will always remain connected.<br>You're always with me, no matter<br>how far apart we are. 💖🥰</div><div class="sub">Goodbye Sister... I will miss you 🥺</div></div></section>
+  <section class="screen" id="images"><div class="wrap"><h1 class="title">MISS YOU GOL GAPPA</h1><div class="image-card"><img id="photo" alt="memory"></div></div></section>
   <section class="screen" id="videos"><div class="video-stage"><div class="video-title" id="videoTitle">Memories Video</div><div class="video-grid" id="videoGrid"></div></div></section>
   <section class="screen" id="lastVideo"><div class="last-video-stage"><div class="last-hint">Last Special Memory ❤️</div><button id="specialBtn" class="special-btn">Laxmi Ye Special Video Hai Dhyan Se Dekhna</button><div class="last-frame" id="lastFrame"><video id="lastSpecialVideo" playsinline webkit-playsinline preload="auto" controls></video></div></div></section>
   <section class="screen" id="final"><div class="final-box"><div class="final-text">Best Sister Ever ❤️</div><div class="final-images"><img id="finalTitle" class="final-img final-title" alt="title"><img id="finalHeart" class="final-img final-heart" alt="heart"><div class="flower"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div></div></section>
+  <section class="screen" id="missFinal"><div class="miss-final-box"><div class="miss-final-card"><div class="miss-final-title">MISS U SO MUCH<br>LAXMI KASHYAP ❤️</div><img id="missFinalPhoto" class="miss-final-img" alt="Laxmi Kashyap"></div></div></section>
 <script>
 const imgCount=15, videoCount=8;
 const baseFolders=['./asset/','./assets/','./assert/','./asserts/','./asset/images/','./assets/images/','./assert/images/','./asserts/images/','./images/','./'];
@@ -62,6 +69,7 @@ setImageWithFallback(document.getElementById('splashTitle'), ['TITLE.PNG','title
 setImageWithFallback(document.getElementById('mainHeart'), ['heart.png','Heart.png','HEART.PNG']);
 setImageWithFallback(document.getElementById('finalTitle'), ['TITLE.PNG','title.png','Title.png']);
 setImageWithFallback(document.getElementById('finalHeart'), ['heart.png','Heart.png','HEART.PNG']);
+setImageWithFallback(document.getElementById('missFinalPhoto'), ['LAXMI KASHYAP.JPG','LAXMI KASHYAP.jpg','LAXMI KASHYAP.jpeg','LAXMI KASHYAP.png','laxmi kashyap.JPG','laxmi kashyap.jpg']);
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
 function petals(n=80){for(let i=0;i<n;i++){const p=document.createElement('div');p.className='petal';p.style.left=Math.random()*100+'vw';p.style.setProperty('--x',(Math.random()*260-130)+'px');p.style.setProperty('--r',(Math.random()*900-450)+'deg');p.style.setProperty('--d',(4+Math.random()*4)+'s');p.style.setProperty('--o',(.55+Math.random()*.45));document.body.appendChild(p);setTimeout(()=>p.remove(),8500)}}
 function blast(n=90){const colors=['#fff','#ff2d78','#ff8ab1','#ffd6e5'];for(let i=0;i<n;i++){const b=document.createElement('div');b.className='blast-piece';b.style.setProperty('--c',colors[i%colors.length]);b.style.setProperty('--x',(Math.random()*1200-600)+'px');b.style.setProperty('--y',(Math.random()*800-400)+'px');document.body.appendChild(b);setTimeout(()=>b.remove(),1400)}}
@@ -110,6 +118,24 @@ function startVideos(group){
 
     setVideoWithFallback(v, videoFileNames(index));
 
+    v.addEventListener('loadedmetadata',()=>{
+      // Video original ratio: no crop, no fixed rectangle frame.
+      const w = v.videoWidth || 16;
+      const h = v.videoHeight || 9;
+      frame.style.aspectRatio = 'auto';
+      v.style.aspectRatio = w + ' / ' + h;
+      v.style.objectFit = 'contain';
+      v.style.width = 'auto';
+      v.style.height = 'auto';
+      if(h > w){
+        frame.classList.add('portrait');
+        frame.classList.remove('landscape');
+      }else{
+        frame.classList.add('landscape');
+        frame.classList.remove('portrait');
+      }
+    });
+
     v.addEventListener('ended',()=>markDone(i));
 
     frame.appendChild(v);
@@ -148,22 +174,59 @@ function startVideos(group){
   setTimeout(goNext, maxTime);
 }
 
+
+let missRainTimer=null;
+function startMissRain(){
+  stopMissRain(false);
+  const words=['MISS U','MISSU','MISS YOU','MISS U ❤️','MISSU 🥺'];
+  function drop(){
+    const w=document.createElement('div');
+    w.className='miss-word';
+    w.textContent=words[Math.floor(Math.random()*words.length)];
+    w.style.left=(Math.random()*92)+'vw';
+    w.style.setProperty('--x',(Math.random()*180-90)+'px');
+    w.style.setProperty('--r',(Math.random()*28-14)+'deg');
+    w.style.setProperty('--d',(3.8+Math.random()*3.2)+'s');
+    document.body.appendChild(w);
+    setTimeout(()=>w.remove(),7600);
+  }
+  for(let i=0;i<22;i++) setTimeout(drop,i*90);
+  missRainTimer=setInterval(()=>{ for(let i=0;i<5;i++) setTimeout(drop,i*140); },650);
+}
+function stopMissRain(clearWords=true){
+  if(missRainTimer){clearInterval(missRainTimer);missRainTimer=null;}
+  if(clearWords) document.querySelectorAll('.miss-word').forEach(e=>e.remove());
+}
+
 function showLastVideo(){
   show('lastVideo');
   const btn=document.getElementById('specialBtn');
   const frame=document.getElementById('lastFrame');
   const v=document.getElementById('lastSpecialVideo');
   const hint=document.querySelector('#lastVideo .last-hint');
+  function fitSpecialVideo(){
+    const vw = v.videoWidth || 9, vh = v.videoHeight || 16;
+    const maxW = Math.floor(window.innerWidth * 0.96);
+    const maxH = Math.floor(window.innerHeight * 0.92);
+    const scale = Math.min(maxW / vw, maxH / vh);
+    v.style.width = Math.floor(vw * scale) + 'px';
+    v.style.height = Math.floor(vh * scale) + 'px';
+  }
+  v.addEventListener('loadedmetadata', fitSpecialVideo);
+  window.addEventListener('resize', fitSpecialVideo);
   frame.style.display='none';
   btn.style.display='inline-block';
   hint.textContent='Last Special Memory ❤️';
   setVideoWithFallback(v,lastVideoFileNames());
 
   btn.onclick=()=>{
+    hint.style.fontSize='clamp(18px,2.4vw,30px)';
     btn.style.display='none';
-    frame.style.display='block';
+    frame.style.display='grid';
+    fitSpecialVideo();
     song.pause();
     playSpecialNow(v);
+    startMissRain();
   };
 
   let playingAkki=false;
@@ -191,19 +254,37 @@ function showLastVideo(){
     if(!playingAkki){
       playingAkki=true;
       hint.textContent='AKKI Special Memory ❤️';
-      frame.style.display='block';
+      hint.style.fontSize='clamp(18px,2.4vw,30px)';
+      frame.style.display='grid';
       btn.style.display='none';
       setVideoWithFallback(v,akkiVideoFileNames());
+      setTimeout(fitSpecialVideo, 300);
       playSpecialNow(v);
+      startMissRain();
       return;
     }
+    stopMissRain();
     blast(120);
     petals(140);
     setTimeout(startFinal,1600);
   };
 }
 
-function startFinal(){show('final');blast(120);petals(140);setInterval(()=>petals(25),2600)}
+function startFinal(){
+  show('final');
+  blast(120);
+  petals(140);
+  if(window.finalPetalTimer) clearInterval(window.finalPetalTimer);
+  window.finalPetalTimer=setInterval(()=>petals(34),1800);
+  setTimeout(showMissFinal,6500);
+}
+function showMissFinal(){
+  show('missFinal');
+  blast(140);
+  petals(180);
+  if(window.finalPetalTimer) clearInterval(window.finalPetalTimer);
+  window.finalPetalTimer=setInterval(()=>petals(42),1500);
+}
 function openIntro(){show('intro');song.play().catch(()=>{});}
 document.getElementById('splashTitle').addEventListener('click',openIntro);
 document.getElementById('splashTitle').addEventListener('touchstart',openIntro,{once:true});
